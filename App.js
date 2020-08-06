@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { View } from "react-native";
 import styled from "styled-components";
 
-import Header from "./components/Header";
-import ListItem from "./components/ListItem";
-import Modal from "./components/Modal";
+import TodoList from "./components/TodoList";
+// import TodoListItem from "./components/TodoListItem";
+import TodoInsert from "./components/TodoInsert";
 
 export default function App() {
+  const [todos, setTodos] = useState([]);
+
+  const addItem = (text) => {
+    setTodos([
+      ...todos,
+      { id: Math.random().toString(), title: text, checked: false },
+    ]);
+  };
+
+  const onRemove = (id) => (e) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
   return (
     <Container>
-      <Header />
-      <ListItem title="오늘 할일이래요" />
-      <ListItem title="이건 내일 할일이에요" />
-      <Modal />
+      <HeaderText>Today's ToDoList</HeaderText>
+      <HeaderLine />
+      <View>
+        <TodoList todos={todos} onRemove={onRemove} />
+        <TodoInsert onAddItem={addItem} />
+      </View>
     </Container>
   );
 }
@@ -19,4 +34,16 @@ export default function App() {
 const Container = styled.SafeAreaView`
   flex: 1;
   background-color: #222;
+`;
+const HeaderText = styled.Text`
+  margin: 25px 0 5px 25px;
+  font-size: 35px;
+  font-weight: 600;
+  color: #f3c623;
+`;
+const HeaderLine = styled.View`
+  width: 300px;
+  height: 5px;
+  margin: 0 0 25px 70px;
+  background-color: #838383;
 `;
