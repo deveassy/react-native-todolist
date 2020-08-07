@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { AntDesign } from "@expo/vector-icons";
-// import Modal from "react-native-modal";
 
 export default function TodoInsert({ onAddItem }) {
   const [newTodoItem, setNewTodoItem] = useState("");
@@ -17,15 +16,16 @@ export default function TodoInsert({ onAddItem }) {
     <Container>
       <ModalTextInput
         autoCorrect={false}
-        // onAddItem={onAddItem}
         onChangeText={ItemInputHandler}
         value={newTodoItem}
-        placeholder="What is going To Do Today?"
+        placeholder="Hey, What is going To Do Today?"
         placeholderTextColor={"#888"}
+        style={{ fontStyle: "italic" }}
         keyboardAppearance="dark"
+        returnKeyType="done"
       />
       <AddButton activeOpacity={0.8} onPress={addItemHandler}>
-        <AntDesign name="upcircleo" color="#f3c623" size={28} />
+        <AntDesign name="downcircleo" color="#f3c623" size={28} />
       </AddButton>
     </Container>
   );
@@ -41,9 +41,9 @@ const Container = styled.View`
 `;
 const ModalTextInput = styled.TextInput`
   align-items: center;
-  justify-content: flex-end;
   width: 100%;
   height: 20px;
+  padding-right: 15px;
   font-size: 17px;
   color: #fff;
 `;

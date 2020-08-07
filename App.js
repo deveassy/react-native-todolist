@@ -19,13 +19,20 @@ export default function App() {
   const onRemove = (id) => (e) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
+
+  const onToggle = (id) => (e) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, checked: !todo.checked } : todo
+      )
+    );
+  };
   return (
     <Container>
       <HeaderText>Today's ToDoList</HeaderText>
-      <HeaderLine />
       <View>
-        <TodoList todos={todos} onRemove={onRemove} />
         <TodoInsert onAddItem={addItem} />
+        <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
       </View>
     </Container>
   );
@@ -40,10 +47,4 @@ const HeaderText = styled.Text`
   font-size: 35px;
   font-weight: 600;
   color: #f3c623;
-`;
-const HeaderLine = styled.View`
-  width: 300px;
-  height: 5px;
-  margin: 0 0 25px 70px;
-  background-color: #838383;
 `;
